@@ -1,3 +1,7 @@
+# Deployed version
+
+Your can access to this project by using this url : https://angular-5uyuxdxhc-many0nnes-projects.vercel.app/
+
 # Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
