@@ -1,0 +1,28 @@
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(249, 33, 186, 0.7); /* Ajustez les valeurs selon vos besoins */
+}
+
+/* Styles globaux pour la scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Largeur de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(249, 33, 186, 0.1); /* Couleur de la piste de la scrollbar */
+    border-radius: 8px; /* Coins arrondis pour la piste */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(249, 33, 186, 0.7); /* Couleur du pouce de la scrollbar */
+    border-radius: 8px; /* Coins arrondis pour le pouce */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(249, 33, 186, 1); /* Couleur du pouce au survol */
+}
+
+/* Pour Firefox */
+* {
+    scrollbar-width: thin; /* Rendre la scrollbar plus fine */
+    scrollbar-color: rgba(249, 33, 186, 0.7) rgba(249, 33, 186, 0.1); /* Couleur du pouce et de la piste */
+}

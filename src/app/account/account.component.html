@@ -1,0 +1,50 @@
+<app-sidebar></app-sidebar>
+<div class="flex min-h-screen bg-gray-900">
+    <!-- Contenu principal de la page utilisateur -->
+    <div class="flex-grow flex items-start justify-end p-4 bg-gray-900">
+        <div class="bg-gray-800 rounded-lg shadow-lg w-full max-w-[calc(100%-16rem)] p-6 space-y-6">
+            
+            <!-- Section Avatar et Informations principales -->
+            <div class="flex items-center space-x-4">
+                <!-- <img [src]="userInfo?.imageUrl" alt="User Avatar" class="w-24 h-24 rounded-full border border-gray-700 shadow-md"> -->
+                <div class="user-avatar bg-blue-500 text-white rounded-full w-24 h-24 flex items-center justify-center">
+                    {{ userInfo?.name.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                    <h1 class="text-2xl font-semibold text-white text-[rgb(249,33,186)]">{{ userInfo?.name }}</h1>
+                    <p class="text-gray-300">{{ userInfo?.email }}</p>
+                    <p class="text-sm text-gray-400">Membre depuis le {{ userInfo?.createdAt | date:'dd MM yyyy' }}</p>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <h2 class="text-lg font-medium text-gray-300">À propos de moi</h2>
+                <p class="text-gray-400 mt-2">
+                    Développeur full-stack passionné par les nouvelles technologies et le design. J'aime travailler sur des projets
+                    innovants et contribuer à des applications de haute qualité.
+                </p>
+            </div>
+
+            <!-- Informations supplémentaires -->
+            <div class="space-y-4">
+                <div class="flex items-center">
+                    <span class="text-gray-300 font-medium">Localisation :</span>
+                    <span class="text-gray-400 pl-2">Paris, France</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-gray-300 font-medium">Téléphone :</span>
+                    <span class="text-gray-400 pl-2">+33 6 12 34 56 78</span>
+                </div>
+            </div>
+
+            <!-- Bouton pour aller sur /modify -->
+            <div class="mt-6">
+                <button (click)="navigateToModify()" 
+                        class="px-4 py-2 bg-gray-800 shadow-lg shadow-[rgba(249,33,186,.5)] border-2 border-[rgb(249,33,186)] text-white rounded-md hover:bg-gradient-to-r hover:from-[rgba(249,33,186,.7)] hover:to-[rgb(249,33,186)] focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    Modifier les informations
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

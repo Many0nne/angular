@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="./inbox.component.css">
+
+<div class="flex justify-end min-h-screen bg-gray-900 text-gray-300">
+  <app-sidebar></app-sidebar>
+  
+  <!-- Contenu principal de la page de chat -->
+  <div class="flex-grow flex flex-row p-4 max-w-[calc(100%-16rem)]">
+    
+    <!-- Liste des utilisateurs -->
+    <div class="w-fit bg-gray-800 p-6 rounded-lg">
+      <h2 class="text-lg font-semibold mb-4 text-white">Utilisateurs</h2>
+      <ul>
+        <li *ngFor="let user of filteredUsers" 
+            (click)="selectUser(user)" 
+            [class.selected]="user === selectedUser" 
+            class="cursor-pointer p-2 hover:bg-gray-800 hover:border-2 hover:border-[rgba(249,33,186,.5)] hover:border-[rgba(249,33,186,.5)] rounded-md transition duration-200 ease-in-out transform hover:scale-105">
+          <div class="flex items-center space-x-4">
+            <div class="user-avatar bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
+              {{ user.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="user-name font-medium text-gray-300">{{ user.name }}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Messages privés -->
+    <div class="flex-grow flex flex-col p-4 ">
+      <div class="flex-grow bg-gray-800 rounded-lg shadow-lg p-6 space-y-6 overflow-y-auto h-96" #inboxContainer>
+        <div *ngIf="selectedUser">
+          <h2 class="text-lg font-semibold mb-4 text-white">Messages avec <span class="text-[rgba(249,33,186,1)] text-shadow">{{ selectedUser.name }}</span></h2>
+          <div class="flex flex-col space-y-4 overflow-y-auto">
+            <div *ngFor="let message of messages" class="message">
+              <div class="flex items-center space-x-4">
+                <div class="message-author font-semibold text-white">{{ message.sender === userInfo._id ? 'Vous' : selectedUser.name }} :</div>
+                <div class="message-content text-gray-400">{{ message.content }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Input pour envoyer des messages -->
+      <div class="mt-4 flex items-center space-x-4">
+        <input [(ngModel)]="newMessage" 
+               (keydown.enter)="sendMessage()" 
+               placeholder="Tapez votre message..." 
+               class="flex-grow px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-400 text-gray-300" />
+        <button (click)="sendMessage()" 
+                class="px-4 py-2 bg-[rgba(15,181,131,.7)] text-white rounded-md hover:bg-[rgba(15,181,131,1)] hover:shadow-lg hover:shadow-[rgba(15,181,131,.7)] transition duration-200 ease-in-out  focus:outline-none focus:ring-2 focus:ring-purple-500">
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
