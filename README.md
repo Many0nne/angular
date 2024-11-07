@@ -1,6 +1,6 @@
 # Deployed version
 
-Your can access to this project by using this url : https://angular-5uyuxdxhc-many0nnes-projects.vercel.app/
+Your can access to this project by using this url : https://angular-terry-barillon.vercel.app
 
 # Angular
 
