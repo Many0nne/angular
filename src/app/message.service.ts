@@ -8,8 +8,8 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MessageService {
-  private apiUrl = 'http://localhost:3000/api/messages';
-  private privateSocket = io('http://localhost:3000/private');
+  private apiUrl = 'https://427b-2a01-cb05-83c6-5100-438c-110-a640-e315.ngrok-free.app/api/messages';
+  private privateSocket = io('https://427b-2a01-cb05-83c6-5100-438c-110-a640-e315.ngrok-free.app/private');
 
   constructor(private http: HttpClient) {}
 

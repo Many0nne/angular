@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api/users';
+  private apiUrl = 'https://427b-2a01-cb05-83c6-5100-438c-110-a640-e315.ngrok-free.app/api/users';
 
   constructor(private http: HttpClient) {}
 

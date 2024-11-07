@@ -25,7 +25,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-const allowedOrigins = ['http://localhost:4200', 'https://angular-5uyuxdxhc-many0nnes-projects.vercel.app'];
+const allowedOrigins = ['http://localhost:4200', 'https://angular-terry-barillon.vercel.app'];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
