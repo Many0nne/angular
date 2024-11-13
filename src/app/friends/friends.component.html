@@ -1,21 +1,58 @@
-<div class="friends-container">
-    <h2>Mes Amis</h2>
-    <ul>
-        <li *ngFor="let friend of friends">
-            {{ friend.name }} ({{ friend.email }})
-        </li>
-    </ul>
-
-    <h2>Demandes d'Amis</h2>
-    <ul>
-        <li *ngFor="let request of friendRequests">
-            {{ request.requester.name }} ({{ request.requester.email }})
-            <button (click)="acceptFriendRequest(request._id)">Accepter</button>
-            <button (click)="rejectFriendRequest(request._id)">Refuser</button>
-        </li>
-    </ul>
-
-    <h2>Envoyer une Demande d'Ami</h2>
-    <input [(ngModel)]="newFriendEmail" placeholder="Email de l'ami" />
-    <button (click)="sendFriendRequest()">Envoyer</button>
-</div>
+<div class="flex min-h-screen bg-gray-900">
+    <!-- Contenu principal de la page utilisateur -->
+    <div class="flex-grow flex items-start justify-end p-4 bg-gray-900">
+      <div class="bg-gray-800 rounded-lg shadow-lg w-full max-w-[calc(100%-16rem)] p-6 space-y-6">
+        <!-- Section Mes Amis -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-white">Mes Amis</h2>
+          <ul class="space-y-2 text-gray-300">
+            <li *ngFor="let friend of friends" class="flex justify-between items-center">
+              <span>{{ friend.name }} ({{ friend.email }})</span>
+            </li>
+          </ul>
+        </div>
+  
+        <!-- Section Demandes d'Amis -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-white">Demandes d'Amis</h2>
+          <ul class="space-y-2 text-gray-300">
+            <li *ngFor="let request of friendRequests" class="flex justify-between items-center">
+              <span>{{ request.requester.name }} ({{ request.requester.email }})</span>
+              <div class="space-x-2">
+                <button 
+                  (click)="acceptFriendRequest(request._id)" 
+                  class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                  Accepter
+                </button>
+                <button 
+                  (click)="rejectFriendRequest(request._id)" 
+                  class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+                  Refuser
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+  
+        <!-- Section Envoyer une Demande d'Ami -->
+        <!-- Section Envoyer une Demande d'Ami -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-white">Envoyer une Demande d'Ami</h2>
+          <div class="flex space-x-2 items-center">
+            <select 
+              [(ngModel)]="selectedUserId" 
+              class="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="" disabled selected>Sélectionner un utilisateur</option>
+              <option *ngFor="let user of users" [value]="user._id">{{ user.name }} ({{ user.email }})</option>
+            </select>
+            <button 
+              (click)="sendFriendRequest()"
+              class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              Envoyer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

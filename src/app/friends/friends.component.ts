@@ -15,19 +15,34 @@ import { Router } from '@angular/router';
 export class FriendsComponent implements OnInit {
   friends: any[] = [];
   friendRequests: any[] = [];
-  newFriendEmail: string = '';
+  selectedUserId: string = '';
+  users: any[] = [];
+  currentUserId: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router : Router) {}
 
   ngOnInit(): void {
     this.loadFriends();
     this.loadFriendRequests();
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.userService.getUsers().subscribe(
+      (data) => {
+        this.users = data;
+      },
+      (error) => {
+        console.error('Error fetching users', error);
+      }
+    );
   }
 
   loadFriends(): void {
     this.userService.getFriends().subscribe(
       (data) => {
         this.friends = data;
+        console.log('Friends', this.friends);
       },
       (error) => {
         console.error('Error fetching friends', error);
@@ -47,26 +62,19 @@ export class FriendsComponent implements OnInit {
   }
 
   sendFriendRequest(): void {
-    this.userService.checkEmailExists(this.newFriendEmail).subscribe(
-      (exists) => {
-        if (exists) {
-          this.userService.sendFriendRequest(exists._id).subscribe(
-            (response) => {
-              console.log('Friend request sent', response);
-              this.newFriendEmail = '';
-            },
-            (error) => {
-              console.error('Error sending friend request', error);
-            }
-          );
-        } else {
-          console.error('User not found');
+    if (this.selectedUserId) {
+      this.userService.sendFriendRequest(this.selectedUserId).subscribe(
+        (response) => {
+          console.log('Friend request sent', response);
+          this.selectedUserId = '';
+        },
+        (error) => {
+          console.error('Error sending friend request', error);
         }
-      },
-      (error) => {
-        console.error('Error checking email', error);
-      }
-    );
+      );
+    } else {
+      console.error('No user selected');
+    }
   }
 
   acceptFriendRequest(requestId: string): void {

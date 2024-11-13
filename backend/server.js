@@ -50,7 +50,7 @@ db.once('open', () => {
 });
 
 
-app.use('/api', userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/uploads', express.static('uploads'));
 

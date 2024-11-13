@@ -65,31 +65,29 @@ export class UserService {
   }
 
 
-
-
   
   sendFriendRequest(recipientId: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.apiUrl}/friends/request`, { recipientId }, { headers });
+    return this.http.post(`${this.apiUrl}/me/friends/request`, { recipientId }, { headers });
   }
 
   acceptFriendRequest(requestId: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.apiUrl}/friends/accept`, { requestId }, { headers });
+    return this.http.post(`${this.apiUrl}/me/friends/accept`, { requestId }, { headers });
   }
 
   rejectFriendRequest(requestId: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.apiUrl}/friends/reject`, { requestId }, { headers });
+    return this.http.post(`${this.apiUrl}/me/friends/reject`, { requestId }, { headers });
   }
 
   getFriendRequests(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/friends/requests`, { headers });
+    return this.http.get(`${this.apiUrl}/me/friends/requests`, { headers });
   }
 
   getFriends(): Observable<any> {

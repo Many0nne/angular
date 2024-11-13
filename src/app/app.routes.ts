@@ -7,13 +7,13 @@ import { InboxComponent } from './inbox/inbox.component';
 import { ModifyComponent } from './modify/modify.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'register', component: UserComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'account', component: AccountComponent },
-    { path: 'inbox', component: InboxComponent },
-    { path: 'modify', component: ModifyComponent }
+    { path: '', redirectTo: '/home', pathMatch: 'full' }, 
+    { path: 'home', component: HomeComponent, pathMatch: 'full' },
+    { path: 'register', component: UserComponent, pathMatch: 'full' },
+    { path: 'login', component: LoginComponent, pathMatch: 'full' },
+    { path: 'account', component: AccountComponent, pathMatch: 'full' },
+    { path: 'inbox', component: InboxComponent, pathMatch: 'full' },
+    { path: 'modify', component: ModifyComponent, pathMatch: 'full' }
 ];
 
 export class AppRoutingModule { }
