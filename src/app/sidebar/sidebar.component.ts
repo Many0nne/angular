@@ -3,13 +3,14 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
