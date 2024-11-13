@@ -3,12 +3,13 @@ import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-friends',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.css'
 })
@@ -101,4 +102,6 @@ export class FriendsComponent implements OnInit {
       }
     );
   }
+
+  
 }
