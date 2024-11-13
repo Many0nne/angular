@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PrivateMessage = require('../models/PrivateMessage');
+const PrivateMessage = require('../models/privateMessage');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 

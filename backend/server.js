@@ -7,8 +7,7 @@ const cors = require('cors');
 const Message = require('./models/Message');
 const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoutes');
-const PrivateMessage = require('./models/PrivateMessage');
-
+const PrivateMessage = require('./models/privateMessage');
 
 const app = express();
 const server = http.createServer(app);
@@ -49,16 +48,24 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-
 app.use('/api', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/uploads', express.static('uploads'));
 
+// Tableau pour stocker les utilisateurs connectés
+let connectedUsers = []; // { socketId: string, username: string }
 
-// Socket.io
+// Socket.io pour la messagerie publique
 io.on('connection', async (socket) => {
-  console.log('New client connected');
 
+  // Lorsqu'un utilisateur se connecte, on lui attribue un nom et on l'ajoute à la liste
+  socket.on('user-connected', (username) => {
+    connectedUsers.push({ socketId: socket.id, username });
+    console.log(`${username} connected, ${connectedUsers[0]}`);
+    io.emit('update-user-list', connectedUsers); // Envoie la liste des utilisateurs connectés à tous les clients
+  });
+
+  // Lorsqu'un utilisateur envoie un message
   try {
     const messages = await Message.find().sort({ timestamp: 1 }).exec();
     socket.emit('previousMessages', messages);
@@ -76,8 +83,11 @@ io.on('connection', async (socket) => {
     }
   });
 
+  // Lorsqu'un utilisateur se déconnecte, on le retire de la liste
   socket.on('disconnect', () => {
     console.log('Client disconnected');
+    connectedUsers = connectedUsers.filter(user => user.socketId !== socket.id);
+    io.emit('update-user-list', connectedUsers); // Mise à jour de la liste des utilisateurs
   });
 });
 
@@ -109,11 +119,9 @@ io.of('/private').on('connection', async (socket) => {
   });
 });
 
-
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
-
 
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
