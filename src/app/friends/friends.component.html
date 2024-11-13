@@ -1,0 +1,21 @@
+<div class="friends-container">
+    <h2>Mes Amis</h2>
+    <ul>
+        <li *ngFor="let friend of friends">
+            {{ friend.name }} ({{ friend.email }})
+        </li>
+    </ul>
+
+    <h2>Demandes d'Amis</h2>
+    <ul>
+        <li *ngFor="let request of friendRequests">
+            {{ request.requester.name }} ({{ request.requester.email }})
+            <button (click)="acceptFriendRequest(request._id)">Accepter</button>
+            <button (click)="rejectFriendRequest(request._id)">Refuser</button>
+        </li>
+    </ul>
+
+    <h2>Envoyer une Demande d'Ami</h2>
+    <input [(ngModel)]="newFriendEmail" placeholder="Email de l'ami" />
+    <button (click)="sendFriendRequest()">Envoyer</button>
+</div>

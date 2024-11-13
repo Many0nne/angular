@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FriendsComponent } from '../friends/friends.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [SidebarComponent, FormsModule, CommonModule],
+  imports: [SidebarComponent, FormsModule, CommonModule, FriendsComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

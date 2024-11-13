@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ChatComponent } from '../chat/chat.component';
+import { FriendsComponent } from '../friends/friends.component';
 
 @Component({
   selector: 'app-home',
