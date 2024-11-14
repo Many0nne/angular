@@ -30,10 +30,15 @@
         <div *ngIf="selectedUser">
           <h2 class="text-lg font-semibold mb-4 text-white">Messages avec <span class="text-[rgba(249,33,186,1)] text-shadow">{{ selectedUser.name }}</span></h2>
           <div class="flex flex-col space-y-4 overflow-y-auto">
-            <div *ngFor="let message of messages" class="message">
-              <div class="flex items-center space-x-4">
-                <div class="message-author font-semibold text-white">{{ message.sender === userInfo._id ? 'Vous' : selectedUser.name }} :</div>
-                <div class="message-content text-gray-400">{{ message.content }}</div>
+            <div *ngFor="let message of messages" class="message px-2 rounded-md" [ngClass]="{'mentioned': isMentioned(message.content)}">
+              <div class="flex space-x-4">
+                <div class="user-avatar bg-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mt-1">
+                  {{ message.sender.charAt(0).toUpperCase() }}
+                </div>
+                <div class="flex-col w-full">
+                  <div class="message-author font-semibold text-white">{{ message.sender === userInfo._id ? 'Vous' : selectedUser.name }}</div>
+                  <div class="message-content text-gray-400">{{ message.content }}</div>
+                </div>
               </div>
             </div>
           </div>

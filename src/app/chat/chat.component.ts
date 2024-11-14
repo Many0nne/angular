@@ -62,6 +62,13 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  isMentioned(message: string): boolean {
+    if (message.includes('@' + this.userInfo.name)) {
+      return true;
+    }
+    return false;
+  }
+
   sendMessage(): void {
     if (this.message.trim() === '') {
       return;

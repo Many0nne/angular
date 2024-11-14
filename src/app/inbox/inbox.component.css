@@ -26,3 +26,7 @@
     scrollbar-width: thin; /* Rendre la scrollbar plus fine */
     scrollbar-color: rgba(249, 33, 186, 0.7) rgba(249, 33, 186, 0.1); /* Couleur du pouce et de la piste */
 }
+
+.mentioned {
+    background-color: #403D38; /* Jaune clair */
+  }
