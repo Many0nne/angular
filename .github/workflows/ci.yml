@@ -20,7 +20,7 @@ jobs:
       - name: Install Chrome dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libnss3 libxss1 libasound2 fonts-liberation libappindicator3-1 xdg-utils
-          
+          sudo apt-get install -y libnss3 libxss1 libasound2-data fonts-liberation libappindicator3-1 xdg-utils
+
       - name: Run tests
         run: npm test
