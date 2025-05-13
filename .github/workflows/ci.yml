@@ -29,10 +29,11 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}:/jmeter \
             justb4/jmeter:5.5 \
-            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl
+            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl \
+            -JAPI_HOST=172.17.0.1 
 
-      - name: Display JMeter results
-        run: cat results.jtl
+      - name: Display first 50 JMeter results
+        run: head -n 51 results.jtl
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
