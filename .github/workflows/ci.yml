@@ -15,22 +15,27 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: 
-          npm ci
-          sudo apt-get update
-          sudo apt-get install -y jmeter
+        run: npm ci
 
       - name: Start backend server
         run: |
           npm install --prefix backend
-          nohup node backend/server.js &
+          nohup node backend/server.js --host 0.0.0.0 &
         env:
           MONGO_URI: mongodb://localhost:27017/angular
+
+      - name: Run JMeter tests using Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/jmeter \
+            justb4/jmeter:5.5 \
+            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl
+
+      - name: Display JMeter results
+        run: cat results.jtl
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-      - name: Run Jmeter tests
-        run: jmeter -n -t jmeter.jmx -l results.jtl
 
 
