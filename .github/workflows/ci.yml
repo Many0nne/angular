@@ -15,7 +15,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci
+        run: 
+          npm ci
+          sudo apt-get update
+          sudo apt-get install -y jmeter
 
       - name: Start backend server
         run: |
@@ -23,12 +26,6 @@ jobs:
           nohup node backend/server.js &
         env:
           MONGO_URI: mongodb://localhost:27017/angular
-
-      - name: Download JMeter
-        run: |
-          curl -L https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz -o jmeter.tgz
-          tar -xzf jmeter.tgz
-          mv apache-jmeter-5.5 jmeter
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
