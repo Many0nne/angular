@@ -17,10 +17,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Chrome dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libnss3 libxss1 libasound2-data fonts-liberation libappindicator3-1 xdg-utils
-
       - name: Run tests
-        run: npm test
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+
