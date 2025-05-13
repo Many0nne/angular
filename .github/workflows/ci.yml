@@ -26,13 +26,10 @@ jobs:
 
       - name: Run JMeter tests using Docker
         run: |
-          HOST_IP=$(ip route | awk '/default/ { print $3 }')
           docker run --rm \
             -v ${{ github.workspace }}:/jmeter \
             justb4/jmeter:5.5 \
-            -JAPI_HOST=$HOST_IP \
             -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl
-
 
       - name: Display first 50 JMeter results
         run: head -n 51 results.jtl
