@@ -43,11 +43,8 @@ jobs:
       - name: Display first 50 JMeter results
         run: head -n 51 results.jtl
 
-      - name: Wait for frontend to be ready
-        run: wait-on http://localhost:4200
-
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npm run e2e
 
       - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
