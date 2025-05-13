@@ -20,13 +20,15 @@ jobs:
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-      - name: Install and run JMeter tests
+      - name: Run JMeter tests using Docker
         run: |
-          curl -L https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.zip -o jmeter.zip
-          unzip jmeter.zip -d $HOME
-          export JMETER_HOME=$HOME/apache-jmeter-5.5
-          export PATH=$JMETER_HOME/bin:$PATH
-          jmeter -n -t jmeter.jmx -l results.jtl
-          cat results.jtl
+          docker run --rm \
+            -v ${{ github.workspace }}:/jmeter \
+            justb4/jmeter:5.5 \
+            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl
+
+      - name: Display JMeter results
+        run: cat results.jtl
+
 
 
