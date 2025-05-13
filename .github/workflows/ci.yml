@@ -22,7 +22,7 @@ jobs:
 
       - name: Install JMeter
         run: |
-          curl -L https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.5.zip -o jmeter.zip
+          curl -L https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.zip -o jmeter.zip
           unzip jmeter.zip -d $HOME
           export JMETER_HOME=$HOME/apache-jmeter-5.5
           export PATH=$JMETER_HOME/bin:$PATH
