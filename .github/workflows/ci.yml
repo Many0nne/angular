@@ -1,0 +1,95 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup:
+    name: Setup Node + Angular
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        run: |
+          npm ci
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
+
+  unit-and-integration-tests:
+    name: Unit & Integration Tests (Jest)
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run backend Jest tests
+        run: |
+          cd backend
+          npm test
+
+  e2e-tests:
+    name: Cypress End-to-End Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Cypress dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Run Angular app in background
+        run: |
+          cd frontend
+          npm run start &
+
+      - name: Wait for frontend to be ready
+        run: sleep 15
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: npm start
+          wait-on: 'http://localhost:4200'
+
+  performance-tests:
+    name: JMeter Performance Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install JMeter
+        run: sudo apt-get install -y jmeter
+
+      - name: Run JMeter test
+        run: |
+          jmeter -n -t tests/performance/jmeter.jmx -l results.jtl
+
+  security-tests:
+    name: OWASP ZAP Scan
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.10.0
+        with:
+          target: 'http://localhost:3000'
