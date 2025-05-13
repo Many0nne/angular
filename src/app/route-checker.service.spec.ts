@@ -1,27 +1,24 @@
 import { TestBed } from '@angular/core/testing';
-import { MessageService } from './message.service';
-import { provideHttpClient } from '@angular/common/http';
+import { RouteCheckerService } from './route-checker.service';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-describe('MessageService', () => {
-  let service: MessageService;
+describe('RouteCheckerService', () => {
+  let service: RouteCheckerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        MessageService,
-        provideHttpClient(),
         {
           provide: ActivatedRoute,
           useValue: {
             params: of({ id: '123' }),
             snapshot: { paramMap: { get: () => '123' } },
           },
-        },
-      ],
+        }
+      ]
     });
-    service = TestBed.inject(MessageService);
+    service = TestBed.inject(RouteCheckerService);
   });
 
   it('should be created', () => {

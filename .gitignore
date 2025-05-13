@@ -42,3 +42,6 @@ testem.log
 .DS_Store
 Thumbs.db
 .vercel
+backend/server.js
+.vscode/settings.json
+angular.json
