@@ -11,7 +11,7 @@ describe('UserService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Utilisez HttpClientTestingModule ici
+      imports: [HttpClientTestingModule],
       providers: [
         UserService,
         {
@@ -28,7 +28,7 @@ describe('UserService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // Vérifiez qu'il n'y a pas de requêtes HTTP en attente
+    httpMock.verify();
   });
 
   it('should be created', () => {
