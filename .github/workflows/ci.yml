@@ -20,3 +20,17 @@ jobs:
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Install JMeter
+        run: |
+          curl -L https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.5.zip -o jmeter.zip
+          unzip jmeter.zip -d $HOME
+          export JMETER_HOME=$HOME/apache-jmeter-5.5
+          export PATH=$JMETER_HOME/bin:$PATH
+
+      - name: Run JMeter tests
+        run: |
+          jmeter -n -t path/to/your/jmeter.jmx -l results.jtl
+
+      - name: Display JMeter results
+        run: cat results.jtl
+
