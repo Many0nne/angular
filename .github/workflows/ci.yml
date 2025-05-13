@@ -30,9 +30,6 @@ jobs:
         env:
           PORT: 4200
 
-      - name: Wait for frontend to be ready
-        run: npx wait-on http://localhost:4200
-
       - name: Run JMeter tests using Docker
         run: |
           docker run --rm \
@@ -45,8 +42,6 @@ jobs:
 
       - name: Run Cypress tests
         run: npx cypress run
-        env: 
-          CYPRESS_BASE_URL: http://172.17.0.1:4200
 
       - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
