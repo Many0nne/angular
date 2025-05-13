@@ -6,29 +6,42 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      # Démarre un service MongoDB pour les tests
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: --health-cmd "mongo --eval 'db.runCommand(\"ping\").ok'" --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # adapte si nécessaire
+          node-version: '20'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Docker Compose
+      - name: Start server for JMeter tests
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+          npm run start:test &
+          sleep 10 # Attendre que le serveur démarre
+        env:
+          PORT: 3000
+          MONGODB_URI: mongodb://localhost:27017/angular
+
+      - name: Run JMeter tests using Docker
+        run: |
+          docker run --network host --rm \
+            -v ${{ github.workspace }}:/jmeter \
+            justb4/jmeter:5.5 \
+            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl -Jserver.host=localhost -Jserver.port=3000
+
+      - name: Display JMeter results
+        run: cat results.jtl
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
-
-      - name: Run integration tests with Docker Compose
-        run: docker-compose up --abort-on-container-exit
-
-
-
-
-

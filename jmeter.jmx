@@ -19,8 +19,8 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetUsers">
-          <stringProp name="HTTPSampler.domain">${__P(API_HOST,localhost)}</stringProp>
-          <stringProp name="HTTPSampler.port">3000</stringProp>
+          <stringProp name="HTTPSampler.domain">${__P(server.host,localhost)}</stringProp>
+          <stringProp name="HTTPSampler.port">${__P(server.port,3000)}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">/api/users</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
