@@ -8,11 +8,11 @@ jobs:
 
     services:
       mongodb:
-        image: mongo:6.0  # Version explicite et stable
+        image: mongo:6.0 
         ports:
           - 27017:27017
         env:
-          MONGO_INITDB_DATABASE: angular  # Initialise la DB directement
+          MONGO_INITDB_DATABASE: angular
         options: >-
           --health-cmd "mongosh --eval 'db.adminCommand({ ping: 1 }).ok'"
           --health-interval 15s
@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Wait for MongoDB (Fallback)
-        run: sleep 15  # Délai supplémentaire pour éviter les race conditions
+        run: sleep 15
 
       - name: Start server for tests
         run: |
