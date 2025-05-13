@@ -18,7 +18,7 @@ jobs:
           --health-interval 15s
           --health-timeout 10s
           --health-retries 10
-          --health-start-period 20s  # Délai avant le premier health-check
+          --health-start-period 20s
 
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
       - name: Start server for tests
         run: |
           npm run start:test &
-          sleep 10  # Attente du démarrage du serveur
+          sleep 10
         env:
           MONGODB_URI: "mongodb://localhost:27017/angular"
           PORT: 3000
