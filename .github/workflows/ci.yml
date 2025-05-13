@@ -26,7 +26,7 @@ jobs:
           unzip jmeter.zip -d $HOME
           export JMETER_HOME=$HOME/apache-jmeter-5.5
           export PATH=$JMETER_HOME/bin:$PATH
-          jmeter -n -t path/to/your/jmeter.jmx -l results.jtl
+          jmeter -n -t jmeter.jmx -l results.jtl
           cat results.jtl
 
 
