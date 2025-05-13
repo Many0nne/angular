@@ -34,7 +34,12 @@ jobs:
       - name: Display first 50 JMeter results
         run: head -n 51 results.jtl
 
-      - name: Run tests
+      - name: Run Cypress tests
+        run: npx cypress run
+        env: 
+          CYPRESS_BASE_URL: http://localhost:3000
+
+      - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
 
