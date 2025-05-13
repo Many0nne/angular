@@ -32,6 +32,9 @@ jobs:
       - name: Run JMeter tests
         run: jmeter -n -t jmeter.jmx -l results.jtl
 
+      - name: Display JMeter results
+        run: tail -n 20 results.jtl
+
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
