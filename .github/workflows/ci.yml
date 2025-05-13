@@ -48,9 +48,10 @@ jobs:
 
       - name: OWASP ZAP Baseline Scan
         run: |
-          docker run --rm -v ${{ github.workspace }}:/zap/wrk \
-            ghcr.io/zaproxy/zaproxy zap-baseline.py \
-            -t http://localhost:4200 -r zap_report.html
+          docker run --rm -v ${{ github.workspace }}:/zap/wrk --user 1000:1000 \
+          ghcr.io/zaproxy/zaproxy zap-baseline.py \
+          -t http://172.17.0.1:4200 -r zap_report.html
+
 
       - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
