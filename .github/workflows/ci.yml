@@ -24,19 +24,16 @@ jobs:
         env:
           MONGO_URI: mongodb://localhost:27017/angular
 
-      - name: Run JMeter tests in Docker
+      - name: Download JMeter
         run: |
-          docker run --rm \
-          -v ${{ github.workspace }}:/jmeter \
-          -w /jmeter \
-          justb4/jmeter:5.6.3 \
-          -n -t jmeter.jmx -l results.jtl
-
-      - name: Display JMeter results
-        run: tail -n 20 results.jtl
+          curl -L https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz -o jmeter.tgz
+          tar -xzf jmeter.tgz
+          mv apache-jmeter-5.5 jmeter
 
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Run Jmeter tests
+        run: jmeter -n -t jmeter.jmx -l results.jtl
 
 
