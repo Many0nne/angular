@@ -52,10 +52,10 @@ jobs:
       - name: Run OWASP ZAP
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}/zap.yaml:/zap/wrk/zap.yaml \
-            -v ${{ github.workspace }}:/zap/wrk/ \
-            ghcr.io/zaproxy/zaproxy:latest zap-full-scan.py \
-              -c /zap/wrk/zap.yaml
+          -v ${{ github.workspace }}/zap.yaml:/zap/wrk/zap.yaml \
+          ghcr.io/zaproxy/zaproxy:latest \
+          zap-full-scan.py -t http://172.17.0.1:4200 -c /zap/wrk/zap.yaml -I
+
 
       - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
