@@ -94,7 +94,7 @@ jobs:
 
       - name: Run JMeter test
         run: |
-          jmeter -n -t tests/performance/jmeter.jmx -l results.jtl
+          jmeter -n -t jmeter.jmx -l results.jtl
 
   owasp-zap-scan:
     name: OWASP ZAP Scan
