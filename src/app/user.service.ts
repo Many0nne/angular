@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -20,8 +20,26 @@ export class UserService {
   }
 
   createUser(user: any): Observable<any> {
-    return this.http.post(this.apiUrl, user);
+    console.log('Creating user with data:', user);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.apiUrl, user, { headers }).pipe (
+      catchError(this.handleError)
+    );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred.
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+
 
   login(user: any): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, user).pipe(

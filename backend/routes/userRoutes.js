@@ -36,6 +36,8 @@ router.post('/upload', auth, upload.single('image'), async (req, res) => {
 // route pour créer un utilisateur
 router.post('/', async (req, res) => {
 
+  console.log('Received data:', req.body);
+
   // chiffrement du mot de passe
 
   const { email, password } = req.body;
@@ -48,6 +50,7 @@ router.post('/', async (req, res) => {
     await user.save();
     res.status(201).send(user);
   } catch (error) {
+    console.error('Error saving user: ', error);
     res.status(400).send(error);
   }
 });

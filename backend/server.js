@@ -37,7 +37,7 @@ app.use(cors({
   credentials: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/", {
+mongoose.connect("mongodb://localhost:27017/angular", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
