@@ -20,15 +20,10 @@ jobs:
       - name: Run tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
-      - name: Run JMeter tests using Docker
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/jmeter \
-            justb4/jmeter:5.5 \
-            -n -t /jmeter/jmeter.jmx -l /jmeter/results.jtl
+      - name: Run integration tests with Docker Compose
+        run: docker-compose up --abort-on-container-exit
 
-      - name: Display JMeter results
-        run: cat results.jtl
+
 
 
 

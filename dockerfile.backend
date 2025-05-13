@@ -1,0 +1,17 @@
+# Dockerfile.backend
+FROM node:20
+
+# Crée un dossier pour l'app
+WORKDIR /app
+
+# Copie les fichiers
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Expose le port (à adapter si ton backend n'écoute pas sur 3000)
+EXPOSE 3000
+
+# Commande de démarrage
+CMD ["npm", "start"]
