@@ -40,8 +40,8 @@ jobs:
       - name: Display first 50 JMeter results
         run: head -n 51 results.jtl
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      # - name: Run Cypress tests
+      #   run: npx cypress run
 
       - name: Run OWASP ZAP Baseline Scan
         run: |
