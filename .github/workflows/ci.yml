@@ -52,15 +52,15 @@ jobs:
       - name: Display first 50 JMeter results
         run: head -n 51 results.jtl
 
-      # - name: Run Cypress tests
-      #   run: npx cypress run
+      - name: Run Cypress tests
+        run: npx cypress run
 
       - name: Run OWASP ZAP Baseline Scan
         run: |
           docker run --rm -v ${{ github.workspace }}:/zap/wrk \
             ghcr.io/zaproxy/zaproxy zap-baseline.py \
             -t http://172.17.0.1:4200 \
-            -m 2 || true 
+            -m 2 || true
 
       - name: Run Unit & integration tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
