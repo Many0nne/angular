@@ -30,6 +30,13 @@ jobs:
         env:
           PORT: 4200
 
+      - name: Initialize database
+        run: |
+          npm install --prefix backend
+          node backend/scripts/init-db.js
+        env:
+          MONGO_URI: mongodb://localhost:27017/angular
+
       - name: Run JMeter tests using Docker
         run: |
           docker run --rm \
