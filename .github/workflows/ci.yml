@@ -6,6 +6,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:5.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,6 +31,7 @@ jobs:
       - name: Start backend server
         run: |
           npm install --prefix backend
+          node backend/scripts/init-db.js
           nohup node backend/server.js --host 0.0.0.0 &
         env:
           MONGO_URI: mongodb://localhost:27017/angular
@@ -29,13 +41,6 @@ jobs:
           nohup npm start -- --host 0.0.0.0 &
         env:
           PORT: 4200
-
-      - name: Initialize database
-        run: |
-          npm install --prefix backend
-          node backend/scripts/init-db.js
-        env:
-          MONGO_URI: mongodb://localhost:27017/angular
 
       - name: Run JMeter tests using Docker
         run: |
