@@ -119,4 +119,16 @@ describe('UserService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });
+
+  it('should return zero discount for price less than or equal to 100', () => {
+    const price = 50;
+    const discount = service.calculateDiscount(price);
+    expect(discount).toBe(0, 'The discount should be 0 for prices <= 100.');
+  });
+
+  it('should apply a 10% discount for price greater than 100', () => {
+    const price = 150;
+    const discount = service.calculateDiscount(price);
+    expect(discount).toBe(15, 'The discount should be 10% of the price for prices > 100.');
+  });
 });

@@ -113,6 +113,13 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/me/friends`, { headers });
   }
+
+  calculateDiscount(price: number): number {
+    if (price > 100) {
+      return price * 0.10;
+    }
+    return 0;
+  }
 }
 
 interface AuthResponse {
