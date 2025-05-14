@@ -16,9 +16,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        
-      - name: Install wait-on
-        run: npm install -g wait-on
 
       - name: Start backend server
         run: |
